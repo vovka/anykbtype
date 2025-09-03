@@ -1,0 +1,12 @@
+.file-loader {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.file-loader > div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}

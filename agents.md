@@ -11,7 +11,6 @@ Create a web-based typing practice application specifically designed for Dilemma
 - The application must parse a QMK `info.json` file to extract the keyboard's physical layout information.
 - The primary focus for the layout is the "keymap" structure within the `layouts` object, as seen in the example `docs/examples/vial.json`.
 - The parser must correctly interpret positional adjustments (x, y), dimensions (w, h), and rotations (r, rx, ry) for each key.
-- The initial requirement to parse `.vil` files for keymaps is currently deferred to focus on rendering the layout from `info.json`.
 
 ### 2.2. Keyboard Visualization
 - The application must render an accurate visual representation of the keyboard based on the parsed `info.json` file.

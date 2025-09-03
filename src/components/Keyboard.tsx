@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import type { InfoJson } from '../types/keyboard';
 import Key from './Key';
 
-interface KeyboardProps {
-  infoJson: InfoJson;
+interface KeyData {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  r: number;
+  rx: number;
+  ry: number;
+  keycodes: (string | number)[];
 }
 
-const Keyboard: React.FC<KeyboardProps> = ({ infoJson }) => {
+interface KeyboardProps {
+  keyboard: KeyData[];
+}
+
+const Keyboard: React.FC<KeyboardProps> = ({ keyboard }) => {
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
+  const [activeLayer, setActiveLayer] = useState(0);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -30,58 +41,30 @@ const Keyboard: React.FC<KeyboardProps> = ({ infoJson }) => {
     };
   }, []);
 
-  const layout = infoJson.layouts.keymap;
-
-  if (!layout) {
-    return <div>No layout found</div>;
-  }
-
-  const keys: any[] = [];
-  let x = 0;
-  let y = -1;
-  let keyProps = { w: 1, h: 1, r: 0, rx: 0, ry: 0 };
-
-  layout.forEach((row: any) => {
-    x = 0;
-    y++;
-    keyProps = { w: 1, h: 1, r: 0, rx: 0, ry: 0 };
-
-    row.forEach((item: any) => {
-      if (typeof item === 'object') {
-        if (item.x) x += item.x;
-        if (item.y) y += item.y;
-        if (item.w) keyProps.w = item.w;
-        if (item.h) keyProps.h = item.h;
-        if (item.r) keyProps.r = item.r;
-        if (item.rx) keyProps.rx = item.rx;
-        if (item.ry) keyProps.ry = item.ry;
-      } else if (typeof item === 'string') {
-        const [matrixRow, matrixCol] = item.split(',').map(Number);
-
-        keys.push({
-          x,
-          y,
-          ...keyProps,
-          label: `${matrixRow},${matrixCol}`,
-        });
-
-        x += keyProps.w;
-        keyProps = { w: 1, h: 1, r: 0, rx: 0, ry: 0 };
-      }
-    });
-  });
-
   return (
-    <svg
-      className="keyboard"
-      width="100%"
-      height="100%"
-      viewBox="0 0 1000 400"
-    >
-      {keys.map((key, index) => (
-        <Key key={index} {...key} isPressed={pressedKeys.has(key.label)} />
-      ))}
-    </svg>
+    <div>
+      <div className="layer-switcher">
+        <button onClick={() => setActiveLayer(0)}>Layer 0</button>
+        <button onClick={() => setActiveLayer(1)}>Layer 1</button>
+        <button onClick={() => setActiveLayer(2)}>Layer 2</button>
+        <button onClick={() => setActiveLayer(3)}>Layer 3</button>
+      </div>
+      <svg
+        className="keyboard"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1200 500"
+      >
+        {keyboard.map((key, index) => (
+          <Key
+            key={index}
+            {...key}
+            keycode={key.keycodes[activeLayer]}
+            isPressed={pressedKeys.has(String(key.keycodes[activeLayer]))}
+          />
+        ))}
+      </svg>
+    </div>
   );
 };
 

@@ -39,6 +39,7 @@ Create a web-based typing practice application specifically designed for Dilemma
 - A GitHub Actions workflow should be set up to build and deploy the application on every push to the `main` branch.
 
 ## 4. Development Process
+- Read the documentation in the .docs/ directory.
 - After each major change, the agent should stop, start the server, and ask the user to verify the result.
 
 ## 5. Documentation

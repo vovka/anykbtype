@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './PracticeArea.css';
 
 const PracticeArea: React.FC = () => {
-  const [text, setText] = useState('hello world');
+  const [text] = useState('hello world');
   const [typedText, setTypedText] = useState('');
 
   useEffect(() => {

@@ -11,11 +11,20 @@ export interface QmkLayout {
   layout: QmkLayoutKey[];
 }
 
+// This represents the structure of the `layouts` object in the provided vial.json
+export interface KeymapLayout {
+  keymap: (string | { [key: string]: number | undefined })[][];
+}
+
 export interface InfoJson {
   keyboard_name: string;
-  layouts: {
-    [layoutName: string]: QmkLayout;
+  layouts: KeymapLayout; // Updated to use the correct layout type
+  matrix: {
+    rows: number;
+    cols: number;
   };
+  // Add other properties from info.json as needed
+  [key: string]: any;
 }
 
 export interface VilFile {

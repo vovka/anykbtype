@@ -29,7 +29,7 @@ const Keyboard: React.FC<KeyboardProps> = ({ infoJson }) => {
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
-  // @ts-ignore
+
   const layout = infoJson.layouts.keymap;
 
   if (!layout) {

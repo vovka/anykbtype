@@ -1,13 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './App.css'
-import { parseInfoJson } from './lib/parser';
 import type { InfoJson } from './types/keyboard';
 import Keyboard from './components/Keyboard';
 import PracticeArea from './components/PracticeArea';
 import defaultInfoJson from '../docs/examples/vial.json';
 
 function App() {
-  const [infoJson, setInfoJson] = useState<InfoJson | null>(defaultInfoJson);
+  const [infoJson] = useState<InfoJson | null>(defaultInfoJson);
 
   return (
     <div className="app">

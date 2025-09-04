@@ -62,7 +62,6 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboard, nextKey, activeLayer, req
         viewBox="0 0 1200 500"
       >
         {keyboard.map((key, index) => {
-          const keyId = `${key.x},${key.y}`;
           return (
             <Key
               key={index}

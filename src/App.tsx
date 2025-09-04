@@ -81,30 +81,34 @@ function App() {
       <header className="app-header">
         <h1>Dilemma Typing Practice</h1>
       </header>
-      <main className="app-main">
-        <div className="file-loader-area">
-          <FileLoader onFilesSelected={handleFilesSelected} />
-        </div>
-        <div className="keyboard-visualization">
-          {keyboard.length > 0 ? (
-            <Keyboard
-              keyboard={keyboard}
-              nextKey={nextKey}
-              activeLayer={activeLayer}
-              requiredLayerSwitchKey={requiredLayerSwitchKey}
-            />
-          ) : (
-            <p>Load info.json and .vil files to see the keyboard.</p>
-          )}
-        </div>
-        <div className="practice-area">
-          <PracticeArea text={text} typedText={typedText} />
-          <button onClick={handleNewText}>New Text</button>
-        </div>
-        <div className="performance-panel">
-          {/* Placeholder for performance panel */}
-        </div>
-      </main>
+      <div className="content-wrapper">
+        <main className="app-main">
+          <div className="practice-area">
+            <PracticeArea text={text} typedText={typedText} />
+            <button onClick={handleNewText}>New Text</button>
+          </div>
+          <div className="keyboard-visualization">
+            {keyboard.length > 0 ? (
+              <Keyboard
+                keyboard={keyboard}
+                nextKey={nextKey}
+                activeLayer={activeLayer}
+                requiredLayerSwitchKey={requiredLayerSwitchKey}
+              />
+            ) : (
+              <p>Load info.json and .vil files to see the keyboard.</p>
+            )}
+          </div>
+        </main>
+        <aside className="sidebar">
+          <div className="file-loader-area">
+            <FileLoader onFilesSelected={handleFilesSelected} />
+          </div>
+          <div className="performance-panel">
+            {/* Placeholder for performance panel */}
+          </div>
+        </aside>
+      </div>
     </div>
   )
 }

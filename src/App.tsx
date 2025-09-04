@@ -5,13 +5,20 @@ import Keyboard from './components/Keyboard';
 import PracticeArea from './components/PracticeArea';
 import FileLoader from './components/FileLoader';
 import { getKeyboard, parseVilFile, parseInfoJson } from './lib/parser';
+import { TEXTS } from './lib/texts';
 
 function App() {
   const [infoJson, setInfoJson] = useState<InfoJson | null>(null);
   const [vilFile, setVilFile] = useState<VilFile | null>(null);
   const [keyboard, setKeyboard] = useState<any[]>([]);
-  const [text] = useState('hello world');
+  const getRandomText = () => TEXTS[Math.floor(Math.random() * TEXTS.length)];
+  const [text, setText] = useState(getRandomText());
   const [typedText, setTypedText] = useState('');
+
+  const handleNewText = () => {
+    setText(getRandomText());
+    setTypedText('');
+  };
 
   const { nextKey, activeLayer, requiredLayerSwitchKey } = useMemo(() => {
     const nextChar = text[typedText.length];
@@ -92,6 +99,7 @@ function App() {
         </div>
         <div className="practice-area">
           <PracticeArea text={text} typedText={typedText} />
+          <button onClick={handleNewText}>New Text</button>
         </div>
         <div className="performance-panel">
           {/* Placeholder for performance panel */}

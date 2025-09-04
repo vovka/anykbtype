@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './PracticeArea.css';
 
-const PracticeArea: React.FC = () => {
-  const [text] = useState('hello world');
-  const [typedText, setTypedText] = useState('');
+interface PracticeAreaProps {
+  text: string;
+  typedText: string;
+}
 
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Backspace') {
-        setTypedText((prev) => prev.slice(0, -1));
-      } else if (event.key.length === 1) {
-        setTypedText((prev) => prev + event.key);
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
+const PracticeArea: React.FC<PracticeAreaProps> = ({ text, typedText }) => {
   return (
     <div className="practice-area">
       <div className="text-to-type">

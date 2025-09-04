@@ -14,11 +14,13 @@ interface KeyData {
 
 interface KeyboardProps {
   keyboard: KeyData[];
+  nextKey: KeyData | null;
+  activeLayer: number;
+  requiredLayerSwitchKey: KeyData | null;
 }
 
-const Keyboard: React.FC<KeyboardProps> = ({ keyboard }) => {
+const Keyboard: React.FC<KeyboardProps> = ({ keyboard, nextKey, activeLayer, requiredLayerSwitchKey }) => {
   const [pressedKeys, setPressedKeys] = useState<Set<string>>(new Set());
-  const [activeLayer, setActiveLayer] = useState(0);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -44,10 +46,14 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboard }) => {
   return (
     <div>
       <div className="layer-switcher">
-        <button onClick={() => setActiveLayer(0)}>Layer 0</button>
-        <button onClick={() => setActiveLayer(1)}>Layer 1</button>
-        <button onClick={() => setActiveLayer(2)}>Layer 2</button>
-        <button onClick={() => setActiveLayer(3)}>Layer 3</button>
+        {keyboard[0]?.keycodes.map((_: any, layer: number) => (
+          <button
+            key={layer}
+            className={activeLayer === layer ? 'active' : ''}
+          >
+            Layer {layer}
+          </button>
+        ))}
       </div>
       <svg
         className="keyboard"
@@ -55,14 +61,19 @@ const Keyboard: React.FC<KeyboardProps> = ({ keyboard }) => {
         height="100%"
         viewBox="0 0 1200 500"
       >
-        {keyboard.map((key, index) => (
-          <Key
-            key={index}
-            {...key}
-            keycode={key.keycodes[activeLayer]}
-            isPressed={pressedKeys.has(String(key.keycodes[activeLayer]))}
-          />
-        ))}
+        {keyboard.map((key, index) => {
+          const keyId = `${key.x},${key.y}`;
+          return (
+            <Key
+              key={index}
+              {...key}
+              keycode={key.keycodes[activeLayer]}
+              isPressed={pressedKeys.has(String(key.keycodes[activeLayer]))}
+              isNextKey={nextKey === key}
+              isLayerSwitchKey={requiredLayerSwitchKey === key}
+            />
+          );
+        })}
       </svg>
     </div>
   );

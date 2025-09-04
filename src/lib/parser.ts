@@ -11,6 +11,9 @@ export const parseVilFile = async (file: File): Promise<VilFile> => {
 };
 
 export const getLayout = (info: InfoJson) => {
+  if (!info?.layouts?.keymap) {
+    return {};
+  }
   const keymap = info.layouts.keymap;
   let x = 0;
   let y = 0;

@@ -11,12 +11,21 @@ interface KeyProps {
   ry: number;
   keycode: string | number;
   isPressed: boolean;
+  isNextKey: boolean;
+  isLayerSwitchKey: boolean;
 }
 
-const Key: React.FC<KeyProps> = ({ x, y, w, h, r, rx, ry, keycode, isPressed }) => {
+const Key: React.FC<KeyProps> = ({ x, y, w, h, r, rx, ry, keycode, isPressed, isNextKey, isLayerSwitchKey }) => {
   const transform = `translate(${x * 60}, ${y * 60}) rotate(${r}, ${
     rx * 60
   }, ${ry * 60})`;
+
+  const getFillColor = () => {
+    if (isPressed) return 'orange';
+    if (isNextKey) return 'yellow';
+    if (isLayerSwitchKey) return 'lightblue';
+    return '#ccc';
+  };
 
   return (
     <g transform={transform}>
@@ -25,7 +34,7 @@ const Key: React.FC<KeyProps> = ({ x, y, w, h, r, rx, ry, keycode, isPressed }) 
         height={h * 60 - 4}
         rx="5"
         ry="5"
-        fill={isPressed ? 'orange' : '#ccc'}
+        fill={getFillColor()}
       />
       <text
         x={(w * 60) / 2}

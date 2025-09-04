@@ -41,6 +41,7 @@ Create a web-based typing practice application specifically designed for Dilemma
 ## 4. Development Process
 - Read the documentation in the .docs/ directory.
 - After each major change, the agent should stop, start the server, and ask the user to verify the result.
+- At the end of the development, run `docker compose run --rm dev npm run build` to ensure there are no build errors.
 
 ## 5. Documentation
 - The development process must be documented. Each major step (e.g., Dockerization, UI Layout, Parsing) should have its own markdown file in the `docs/progress/` directory.
